@@ -1,9 +1,9 @@
 package cmd
 
 import (
-	"github.com/kujtimiihoxha/kit/generator"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
+	"kit/generator"
 )
 
 var serviceCmd = &cobra.Command{

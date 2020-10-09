@@ -65,11 +65,12 @@ func GetServiceImportPath(name string) (string, error) {
 		pwd += "/" + viper.GetString("gk_folder")
 	}
 	pwd = strings.Replace(pwd, "\\", "/", -1)
-	projectPath := strings.Replace(pwd, gosrc, "", 1)
+	// projectPath := strings.Replace(pwd, gosrc, "", 1)
 	svcPath := fmt.Sprintf(viper.GetString("gk_service_path_format"), ToLowerSnakeCase(name))
 
 	svcPath = strings.Replace(svcPath, "\\", "/", -1)
-	serviceImport := projectPath + "/" + svcPath
+	serviceImport := svcPath
+
 	return serviceImport, nil
 }
 
@@ -85,11 +86,10 @@ func GetCmdServiceImportPath(name string) (string, error) {
 		pwd += "/" + viper.GetString("gk_folder")
 	}
 	pwd = strings.Replace(pwd, "\\", "/", -1)
-	projectPath := strings.Replace(pwd, gosrc, "", 1)
 	svcPath := fmt.Sprintf(viper.GetString("gk_cmd_service_path_format"), ToLowerSnakeCase(name))
 
 	svcPath = strings.Replace(svcPath, "\\", "/", -1)
-	serviceImport := projectPath + "/" + svcPath
+	serviceImport := svcPath
 	return serviceImport, nil
 }
 
@@ -105,11 +105,10 @@ func GetEndpointImportPath(name string) (string, error) {
 		pwd += "/" + viper.GetString("gk_folder")
 	}
 	pwd = strings.Replace(pwd, "\\", "/", -1)
-	projectPath := strings.Replace(pwd, gosrc, "", 1)
 	epPath := fmt.Sprintf(viper.GetString("gk_endpoint_path_format"), ToLowerSnakeCase(name))
 
 	epPath = strings.Replace(epPath, "\\", "/", -1)
-	endpointImport := projectPath + "/" + epPath
+	endpointImport := epPath
 	return endpointImport, nil
 }
 
@@ -125,11 +124,10 @@ func GetGRPCTransportImportPath(name string) (string, error) {
 		pwd += "/" + viper.GetString("gk_folder")
 	}
 	pwd = strings.Replace(pwd, "\\", "/", -1)
-	projectPath := strings.Replace(pwd, gosrc, "", 1)
 	epPath := fmt.Sprintf(viper.GetString("gk_grpc_path_format"), ToLowerSnakeCase(name))
 
 	epPath = strings.Replace(epPath, "\\", "/", -1)
-	endpointImport := projectPath + "/" + epPath
+	endpointImport := epPath
 	return endpointImport, nil
 }
 
@@ -145,11 +143,10 @@ func GetPbImportPath(name string) (string, error) {
 		pwd += "/" + viper.GetString("gk_folder")
 	}
 	pwd = strings.Replace(pwd, "\\", "/", -1)
-	projectPath := strings.Replace(pwd, gosrc, "", 1)
 	epPath := fmt.Sprintf(viper.GetString("gk_grpc_pb_path_format"), ToLowerSnakeCase(name))
 
 	epPath = strings.Replace(epPath, "\\", "/", -1)
-	endpointImport := projectPath + "/" + epPath
+	endpointImport := epPath
 	return endpointImport, nil
 }
 
@@ -165,11 +162,10 @@ func GetHTTPTransportImportPath(name string) (string, error) {
 		pwd += "/" + viper.GetString("gk_folder")
 	}
 	pwd = strings.Replace(pwd, "\\", "/", -1)
-	projectPath := strings.Replace(pwd, gosrc, "", 1)
 	epPath := fmt.Sprintf(viper.GetString("gk_http_path_format"), ToLowerSnakeCase(name))
 
 	epPath = strings.Replace(epPath, "\\", "/", -1)
-	httpImports := projectPath + "/" + epPath
+	httpImports := epPath
 	return httpImports, nil
 }
 

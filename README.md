@@ -1,5 +1,5 @@
-# GoKit CLI  [![Build Status](https://travis-ci.org/kujtimiihoxha/kit.svg?branch=master)](https://travis-ci.org/kujtimiihoxha/kit)[![Go Report Card](https://goreportcard.com/badge/github.com/kujtimiihoxha/kit)](https://goreportcard.com/report/github.com/kujtimiihoxha/kit)[![Coverage Status](https://coveralls.io/repos/github/kujtimiihoxha/kit/badge.svg?branch=master)](https://coveralls.io/github/kujtimiihoxha/kit?branch=master)
-This project is a more advanced version of [gk](https://github.com/kujtimiihoxha/gk).
+# GoKit CLI  [![Build Status](https://travis-ci.org/kujtimiihoxha/kit.svg?branch=master)](https://travis-ci.org/kujtimiihoxha/kit)[![Go Report Card](https://goreportcard.com/badge/kit)](https://goreportcard.com/report/kit)[![Coverage Status](https://coveralls.io/repos/github/kujtimiihoxha/kit/badge.svg?branch=master)](https://coveralls.io/github/kujtimiihoxha/kit?branch=master)
+This project is a more advanced version of [gk](https://gk).
 The goal of the gokit cli is to be a tool that you can use while you develop your microservices with `gokit`.
 
 While `gk` did help you create your basic folder structure it was not really able to be used further on in your project.
@@ -28,7 +28,7 @@ go get -u github.com/golang/protobuf/protoc-gen-go
 # Installation
 Before you install please read [prerequisites](#prerequisites)
 ```bash
-go get github.com/kujtimiihoxha/kit
+go get kit
 ```
 # Usage
 ```bash

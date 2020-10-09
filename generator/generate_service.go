@@ -5,10 +5,11 @@ import (
 	"path"
 	"strings"
 
+	"kit/fs"
+	"kit/parser"
+	"kit/utils"
+
 	"github.com/dave/jennifer/jen"
-	"github.com/kujtimiihoxha/kit/fs"
-	"github.com/kujtimiihoxha/kit/parser"
-	"github.com/kujtimiihoxha/kit/utils"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 )

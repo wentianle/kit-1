@@ -1,6 +1,7 @@
-module github.com/kujtimiihoxha/kit
 
-go 1.12
+module kit
+
+go 1.14
 
 require (
 	github.com/Songmu/prompter v0.0.0-20181014095714-d227c68538bd

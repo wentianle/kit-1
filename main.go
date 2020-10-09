@@ -7,8 +7,9 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/kujtimiihoxha/kit/cmd"
-	"github.com/kujtimiihoxha/kit/utils"
+	"kit/cmd"
+	"kit/utils"
+
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/afero"
 	"github.com/spf13/viper"
@@ -17,7 +18,7 @@ import (
 func main() {
 	setDefaults()
 	viper.AutomaticEnv()
-	gosrc := strings.TrimSuffix(utils.GetGOPATH(), afero.FilePathSeparator ) + afero.FilePathSeparator + "src" + afero.FilePathSeparator
+	gosrc := strings.TrimSuffix(utils.GetGOPATH(), afero.FilePathSeparator) + afero.FilePathSeparator + "src" + afero.FilePathSeparator
 	pwd, err := os.Getwd()
 	if err != nil {
 		logrus.Error(err)
@@ -33,10 +34,10 @@ func main() {
 		logrus.Error(err)
 		return
 	}
-	if !strings.HasPrefix(pwd, gosrc) {
-		logrus.Error("The project must be in the $GOPATH/src folder for the generator to work.")
-		return
-	}
+	// if !strings.HasPrefix(pwd, gosrc) {
+	// 	logrus.Error("The project must be in the $GOPATH/src folder for the generator to work.")
+	// 	return
+	// }
 	cmd.Execute()
 }
 
