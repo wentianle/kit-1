@@ -15,14 +15,15 @@ import (
 
 	"errors"
 
+	"kit/fs"
+	"kit/parser"
+	"kit/utils"
+
 	"github.com/dave/jennifer/jen"
 	"github.com/emicklei/proto"
 	"github.com/emicklei/proto-contrib/pkg/protofmt"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
-	"kit/fs"
-	"kit/parser"
-	"kit/utils"
 )
 
 // GenerateTransport implement Gen, is used to generate a service transport
@@ -64,13 +65,13 @@ func (g *GenerateTransport) Generate() (err error) {
 		if v == g.transport {
 			break
 		} else if n == len(SupportedTransports)-1 {
-			return errors.New(fmt.Sprintf("transport `%s` not supported", g.transport))
+			return fmt.Errorf("transport `%s` not supported", g.transport)
 		}
 	}
 	if b, err := g.fs.Exists(g.filePath); err != nil {
 		return err
 	} else if !b {
-		return errors.New(fmt.Sprintf("service %s was not found", g.name))
+		return fmt.Errorf("service %s was not found", g.name)
 	}
 	svcSrc, err := g.fs.ReadFile(g.filePath)
 	if err != nil {
@@ -78,7 +79,7 @@ func (g *GenerateTransport) Generate() (err error) {
 	}
 	g.file, err = parser.NewFileParser().Parse([]byte(svcSrc))
 	if !g.serviceFound() {
-		return errors.New(fmt.Sprintf("could not find the service interface in `%s`", g.name))
+		return fmt.Errorf("could not find the service interface in `%s`", g.name)
 	}
 	g.removeBadMethods()
 	mth := g.serviceInterface.Methods
@@ -1123,7 +1124,7 @@ func (g *generateGRPCTransport) Generate() (err error) {
 				n,
 				jen.Id(stp).Id("*grpcServer"),
 				[]jen.Code{
-					jen.Id("ctx").Qual("golang.org/x/net/context", "Context"),
+					jen.Id("ctx").Qual("context", "Context"),
 					jen.Id("req").Id("*").Qual(pbImport, n+"Request"),
 				},
 				[]jen.Code{
