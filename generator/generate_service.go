@@ -1245,7 +1245,7 @@ func (g *generateCmdBase) Generate() (err error) {
 		if err != nil {
 			return err
 		}
-		cd = append(cd, jen.Id("initHttpHandler").Call(jen.Id("endpoints"), jen.Id("g")))
+		cd = append(cd, jen.Id("initHTTPHandler").Call(jen.Id("endpoints"), jen.Id("g")))
 	}
 	if existingGRPC {
 		src, err := g.fs.ReadFile(g.grpcFilePath)
@@ -1323,7 +1323,7 @@ func (g *generateCmdBase) Generate() (err error) {
 		).Line()
 		pl.Raw().Return(jen.Id("options"))
 		g.code.appendFunction(
-			"defaultHttpOptions",
+			"defaultHTTPOptions",
 			nil,
 			[]jen.Code{
 				jen.Id("logger").Qual("github.com/go-kit/kit/log", "Logger"),
@@ -1675,45 +1675,7 @@ func (g *generateCmd) generateRun() (*PartialGenerator, error) {
 		},
 	)
 	pg.NewLine()
-	pg.Raw().If(
-		jen.Id("*zipkinURL").Op("!=").Lit(""),
-	).Block(
-		jen.Id("logger").Dot("Log").Call(
-			jen.Lit("tracer"),
-			jen.Lit("Zipkin"),
-			jen.Lit("URL"),
-			jen.Id("*zipkinURL"),
-		),
-		jen.List(jen.Id("collector"), jen.Err()).Op(":=").Qual(
-			"github.com/openzipkin/zipkin-go-opentracing", "NewHTTPCollector",
-		).Call(jen.Id("*zipkinURL")),
-		jen.If(jen.Err().Op("!=").Nil()).Block(
-			jen.Id("logger").Dot("Log").Call(
-				jen.Lit("err"),
-				jen.Id("err"),
-			),
-			jen.Qual("os", "Exit").Call(jen.Lit(1)),
-		),
-		jen.Defer().Id("collector").Dot("Close").Call(),
-		jen.Id("recorder").Op(":=").Qual(
-			"github.com/openzipkin/zipkin-go-opentracing", "NewRecorder",
-		).Call(
-			jen.Id("collector"),
-			jen.Lit(false),
-			jen.Lit("localhost:80"),
-			jen.Lit(g.name),
-		),
-		jen.List(jen.Id("tracer"), jen.Id("err")).Op("=").Qual(
-			"github.com/openzipkin/zipkin-go-opentracing", "NewTracer",
-		).Call(jen.Id("recorder")),
-		jen.If(jen.Err().Op("!=").Nil()).Block(
-			jen.Id("logger").Dot("Log").Call(
-				jen.Lit("err"),
-				jen.Id("err"),
-			),
-			jen.Qual("os", "Exit").Call(jen.Lit(1)),
-		),
-	).Else().If(jen.Id("*lightstepToken").Op("!=").Lit("")).Block(
+	pg.Raw().If(jen.Id("*lightstepToken").Op("!=").Lit("")).Block(
 		jen.Id("logger").Dot("Log").Call(
 			jen.Lit("tracer"),
 			jen.Lit("LightStep"),
@@ -1860,7 +1822,7 @@ func (g *generateCmd) generateVars() {
 }
 func (g *generateCmd) generateInitHTTP() (err error) {
 	for _, v := range g.file.Methods {
-		if v.Name == "initHttpHandler" {
+		if v.Name == "initHTTPHandler" {
 			return
 		}
 	}
@@ -1875,7 +1837,7 @@ func (g *generateCmd) generateInitHTTP() (err error) {
 	}
 
 	pt := NewPartialGenerator(nil)
-	pt.Raw().Id("options").Op(":=").Id("defaultHttpOptions").Call(
+	pt.Raw().Id("options").Op(":=").Id("defaultHTTPOptions").Call(
 		jen.Id("logger"),
 		jen.Id("tracer"),
 	).Line().Comment("Add your http options here").Line().Line()
@@ -1921,7 +1883,7 @@ func (g *generateCmd) generateInitHTTP() (err error) {
 	).Line()
 	g.code.NewLine()
 	g.code.appendFunction(
-		"initHttpHandler",
+		"initHTTPHandler",
 		nil,
 		[]jen.Code{
 			jen.Id("endpoints").Qual(epImport, "Endpoints"),
